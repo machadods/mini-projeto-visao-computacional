@@ -10,18 +10,32 @@ O sistema não classifica as peças como defeituosas ou não defeituosas. O resu
 
 ## Fluxo de processamento
 
-```mermaid
-flowchart LR
-    A[Imagens originais] --> B[Escala de cinza]
-    B --> C[Gaussian Blur]
-    C --> D[Limiarização de Otsu]
-    D --> E[Operações morfológicas]
-    C --> F[Canny: detalhes]
-    E --> G[Canny: estrutura]
-    F --> H[Combinação das bordas]
-    G --> H
-    H --> I[Resize 256 x 256]
-    I --> J[Imagens processadas]
+```text
+Imagens originais
+       |
+       v
+Escala de cinza
+       |
+       v
+Gaussian Blur ---------> Canny dos detalhes -------+
+       |                                             |
+       v                                             |
+Limiarização de Otsu                                 |
+       |                                             |
+       v                                             |
+Operações morfológicas                               |
+       |                                             |
+       v                                             |
+Canny da estrutura ----------------------------------+
+                                                     |
+                                                     v
+                                         Combinação das bordas
+                                                     |
+                                                     v
+                                             Resize 256 x 256
+                                                     |
+                                                     v
+                                         Imagens processadas
 ```
 
 O pipeline combina as bordas encontradas na imagem suavizada com as bordas da máscara refinada. Dessa forma, o resultado preserva detalhes internos e reforça o contorno principal da peça.
