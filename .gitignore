@@ -1,0 +1,9 @@
+.venv/
+__pycache__/
+*.pyc
+
+# As imagens do dataset e os resultados ficam apenas no computador.
+data/raw/*
+!data/raw/.gitkeep
+data/processed/*
+!data/processed/.gitkeep
